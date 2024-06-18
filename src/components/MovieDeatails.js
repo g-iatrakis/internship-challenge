@@ -6,27 +6,24 @@ const MovieDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [movie, setMovie] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
-      setLoading(true);
       setError(null);
       try {
         const result = await getMovieDetails(id);
         setMovie(result);
       } catch (err) {
         setError('Failed to fetch movie details');
-      } finally {
-        setLoading(false);
-      }
+       } 
     };
 
     fetchMovieDetails();
   }, [id]);
 
-  if (loading) return <p>Loading...</p>;
+
   if (error) return <p>{error}</p>;
   if (!movie) return <p>No movie found</p>;
 
